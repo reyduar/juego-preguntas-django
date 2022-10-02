@@ -1,0 +1,22 @@
+{% extends 'core/base.html' %} {% block title %}Ayuda{% endblock %} 
+{% block background %}{% load static %}{% static 'core/img/oso_hormiguero2.jpg' %}{% endblock %} 
+
+{% block headers %}
+<h1 class="ayuda">PREGUNTAS</h1>
+<span class="guia-ayuda">Gestión de preguntas</span>
+{% endblock %} 
+{% block content %}
+<div class="row">
+  <div class="col-lg-8 col-md-10 mx-auto">    
+    <p><b>Crear Preguntas</b></p>
+    <form action="" method="POST">
+      {% csrf_token %}
+
+      {{form.as_p}}
+
+      <input type="submit" value="Guardar">
+
+    </form>
+  </div>
+</div>
+{% endblock %}

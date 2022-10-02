@@ -1,0 +1,144 @@
+<script>
+
+  var preguntaActualId = '{{pregunta.id}}';
+  var nivelActualId = '{{nivel.id}}';
+  var categoriaActualId = '{{categoria.id}}';
+  var todasLasPreguntas = [];
+  var preguntasQueFaltas = [];
+  var preguntaCountdown = null;
+  var totalPreguntasXCategoria = null;
+  const _TIMEOUT = 2000;
+  const _COUNTDOWN = 20;
+  const cuenta = document.createElement('h1');
+  const total = document.createElement('h3');
+  function traerPreguntas() {
+    const categoriaId = '{{categoria.id}}'
+    const preguntasUrl = `{% url 'preguntas' %}?categoriaId=${categoriaId}&preguntaId=${preguntaActualId}&nivelId=${nivelActualId}`;
+    fetch(preguntasUrl).then(response => response.json()).then(function(data){
+      const { preguntas } = data;
+      todasLasPreguntas = preguntas;
+      siguientesPreguntas = preguntas.map(item => (item.id));
+      preguntasQueFaltas = siguientesPreguntas.filter(id => id > parseInt(preguntaActualId));
+      totalPreguntasXCategoria = preguntas.length;
+      const totalRestantes = preguntasQueFaltas.length;
+      const avance = `${totalPreguntasXCategoria - totalRestantes} / ${totalPreguntasXCategoria}`
+      total.innerHTML = '<span class=avance>'+avance+'</span>';
+      document.getElementById("totalPreguntas").appendChild(total);
+    });
+  }
+  
+  function cuentaRegresiva(numero) {
+    var contador = numero;
+    cuenta.innerHTML = '<span class=no-binary>'+contador+'</span>';
+    document.getElementById("cuenta").appendChild(cuenta);
+    preguntaCountdown = setInterval(function() {
+      contador--
+      if (contador < 0) {
+        clearInterval(preguntaCountdown);
+        cuenta.innerHTML = '<div class="error-color">¡Tiempo fuera!</div>';
+        document.getElementById("cuenta").appendChild(cuenta);
+        setPuntuacion(0);
+        setTimeout(() => {
+          avanzarAlSiguiente();
+        }, _TIMEOUT);
+      } else {
+        cuenta.innerHTML = '<span class=no-binary>'+contador+'</span>';
+        document.getElementById("cuenta").appendChild(cuenta);
+      }
+    }, _TIMEOUT);
+  }
+  
+  function validarElCorrecto(id, preguntaId, correcto) {
+    clearInterval(preguntaCountdown);
+    $(".j-button").removeClass("btn-outline-secondary");
+    const opcionUrl = `{% url 'opcionCorrecta' %}?preguntaId=${preguntaId}`;
+    fetch(opcionUrl).then(response => response.json()).then(function(data) {
+      const { opciones } = data;
+      respuestCorrecta = opciones.find(op => (op.correcto));
+      $(`#${respuestCorrecta.id}`).addClass("correcto-highlight");
+      if(correcto === 'True') {
+        setPuntuacion(1);
+        cuenta.innerHTML = '<div class="exito-color">¡Correcto!</div>';
+        document.getElementById("cuenta").appendChild(cuenta);
+      } else {
+        setPuntuacion(0);
+        $(`#${id}`).addClass("incorrecto-highlight");
+        cuenta.innerHTML = '<div class="error-color">Incorrecto!</div>';
+        document.getElementById("cuenta").appendChild(cuenta);
+      }
+      setTimeout(() => {
+        avanzarAlSiguiente();
+      }, _TIMEOUT);
+    })
+  }
+
+  function avanzarAlSiguiente() {
+    let url = "{% url 'inicio' %}"
+    if(!!preguntasQueFaltas.length) {
+      const sigPregId = preguntasQueFaltas[0].toString();
+      url = "{% url 'juego' categoriaId=123 nivelId=789 preguntaId=456 %}".replace(/123/, categoriaActualId).replace(/789/, nivelActualId).replace(/456/, sigPregId)
+      window.location.href = url;
+    } else {
+      const cantidadRespuestas = getPuntuacion();
+      const cincuentaPorciento = totalPreguntasXCategoria / 2;
+      // Solo guardamos el puntaje si alcanzo a responder el 50% de las preguntas
+      if (cantidadRespuestas < cincuentaPorciento) {
+        cuenta.innerHTML = '<div class="error-color">!Perdió, Siga intentando!</div>';
+          document.getElementById("cuenta").appendChild(cuenta);
+          setTimeout(() => {
+            window.location.href = url;
+          }, _TIMEOUT);
+      } else {
+        // Guardamos los puntajes en el base de Django
+        var csrftoken = '{{ csrf_token }}'
+        const usuario = "{{request.user.id}}";
+        let puntuacion = {
+          'usuarioId': parseInt(usuario),
+          'categoriaId': parseInt(categoriaActualId),
+          'nivelId': parseInt(nivelActualId),
+          'cantidadPreguntas': totalPreguntasXCategoria,
+          'cantidadRespuestas': cantidadRespuestas
+        }
+  
+        const url = "{% url 'puntuacion' %}"
+        fetch(url, {
+          method: 'POST',
+          credentials: 'include',
+          headers:{
+            'Accept': 'application/json',
+            'X-Requested-With': 'XMLHttpRequest',
+            'X-CSRFToken': csrftoken,
+          },
+          body: JSON.stringify(puntuacion)
+        })
+        .then(() => {}).then(() => {
+          cuenta.innerHTML = '<div class="exito-color">!Ganó, Felicitaciones!</div>';
+          document.getElementById("cuenta").appendChild(cuenta);
+          setTimeout(() => {
+            window.location.href = url;
+          }, _TIMEOUT);
+          })
+        .catch(function(err) {
+          console.log(err);
+        });
+      }
+    }
+  }
+ 
+   traerPreguntas();
+   cuentaRegresiva(_COUNTDOWN);
+   
+  function setPuntuacion(puntuacion) {
+    let contarCorrectas = localStorage.getItem("puntuacion") ? parseInt(localStorage.getItem("puntuacion")) : 0;
+    contarCorrectas += puntuacion;
+    localStorage.setItem("puntuacion", contarCorrectas);
+  }
+
+  function getPuntuacion() {
+    let pts = 0;
+    if (localStorage.getItem("puntuacion")) {
+      pts = parseInt(localStorage.getItem("puntuacion"));
+    }
+    return pts;
+  }
+</script>

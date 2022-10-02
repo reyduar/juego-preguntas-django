@@ -1,0 +1,59 @@
+<html>
+  <head>
+      <title>Registro</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>     
+    
+      <!-- Estilos y fuentes del template  -->
+      {% load static %}
+      <link rel="icon" href="{% static 'core/img/favicon.ico' %}"/>
+      <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+      <link href="{% static 'core/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css"/>
+      <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+      <link href="{% static 'core/css/clean-blog.min.css' %}" rel="stylesheet" />
+      <link href="{% static 'core/css/styles.css' %}" rel="stylesheet" />
+  </head>
+  <body class="usuario">
+    
+  <style>.errorlist{color:red;} label{display:show}</style>
+          
+    <main role="main">
+      <div class="container">
+        <div class="row mt-3">
+          <div class="col-md-9 mx-auto mb-5">
+            <form action="" method="post">{% csrf_token %}
+              <h3 class="mb-4">Registro de Usuario</h3>
+              <div class="row">
+                <div class="col-md-12" style="text-align: center;">
+                  {% static "" as baseUrl %}
+                  <img
+                    class="img-fluid avatar registro-profile"
+                    src="{{ baseUrl }}core/img/avatar/{{avatar}}"
+                    alt=""
+                  />
+                  <div>
+                    <small class="text-muted">Este es su avatar asignado</small>
+                  </div>
+                </div>   
+              </div>
+              <!-- {{form.as_p}} -->
+                {% for field in form %}
+                  <div class="fieldWrapper">
+                      {{ field.errors }}
+                      {{ field.label_tag }} {{ field }}
+                      <!--
+                      {% if field.help_text %}
+                      <p class="help">{{ field.help_text|safe }}</p>
+                      {% endif %}
+                      -->
+                  </div>
+              {% endfor %}
+              <input type="submit" class="btn btn-secondary btn-block j-button-usu" value="Registrar">
+            </form>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,57 @@
+<html>
+    <head>
+      <title>Login</title>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>     
+
+      <!-- Estilos y fuentes del template  -->
+      {% load static %}
+      <link rel="icon" href="{% static 'core/img/favicon.ico' %}"/>
+      <link href="{% static 'core/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet"/>
+      <link href="{% static 'core/vendor/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css"/>
+      <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css"/>
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css"/>
+      <link href="{% static 'core/css/clean-blog.min.css' %}" rel="stylesheet" />
+      <link href="{% static 'core/css/styles.css' %}" rel="stylesheet" />
+    </head>
+
+  <body class="usuario">
+    <div id="ohsnap"></div>
+    <style>.errorlist{color:red;}</style>
+    <main role="main">
+      <div class="container">
+        <div class="row mt-3">
+          <div class="col-md-9 mx-auto mb-5">
+            <form action="" method="post">{% csrf_token %}
+              <h3 class="mb-4">Iniciar sesión</h3>
+              {% if form.non_field_errors %}
+                <p style="color:red">Usuario o contraseña incorrectos, prueba de nuevo.</p>
+              {% endif %}
+              <p>
+                <input type="text" name="username" autofocus maxlength="254" required
+                  id="id_username" class="form-control" placeholder="Nombre de usuario"/>
+              </p>
+              <p>
+                <input type="password" name="password" required
+                  id="id_password" class="form-control" placeholder="Contraseña"/>
+              </p>
+              <input type="submit" class="btn btn-secondary btn-block j-button-usu" value="Acceder">
+            </form>
+              <div class="center">
+                <a href="{% url 'registro' %}" role="button" class="btn btn-link">Registrar usuario</a>
+              </div>
+            </div>
+         </div>
+        </div>
+      </main>
+      <script src="{% static 'core/vendor/jquery/jquery.min.js' %}"></script>
+      <script src="{% static 'core/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'core/js/ohsnap.min.js' %}"></script>
+      <script>
+        var seRegistro = '{{registro}}';
+        if (seRegistro === 'True') {
+          ohSnap('Excelente! Ahora ya estas registrado, ya puedes identificarte.', {color: 'success', icon: 'icon-alert'}, {time: '2000'});
+        }
+      </script>
+  </body>
+</html>

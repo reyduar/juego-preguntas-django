@@ -1,0 +1,305 @@
+.alert {
+  padding: 15px;
+  margin-bottom: 20px;
+  border: 1px solid #eed3d7;
+  border-radius: 4px;
+  position: absolute;
+  bottom: 0px;
+  right: 21px;
+  /* Each alert has its own width */
+  float: right;
+  clear: right;
+}
+
+.alert-red {
+  color: white;
+  background-color: #da4453;
+}
+.alert-green {
+  color: white;
+  background-color: #37bc9b;
+}
+.alert-blue {
+  color: white;
+  background-color: #4a89dc;
+}
+.alert-yellow {
+  color: white;
+  background-color: #f6bb42;
+}
+.alert-orange {
+  color: white;
+  background-color: #e9573f;
+}
+
+.j-button {
+  cursor: pointer;
+  margin: 5px;
+  border-radius: 0.5rem;
+}
+
+.j-box-1 {
+  padding: 20px;
+}
+
+.highlight {
+  background-color: #183153;
+  color: white;
+  font-weight: 900;
+}
+
+.correcto-highlight {
+  background-color: #059862;
+  color: white;
+  font-weight: 900;
+}
+
+.incorrecto-highlight {
+  background-color: #f62d51;
+  color: white;
+  font-weight: 900;
+  -webkit-animation: shakeX 1s;
+  animation: shakeX 1s;
+}
+
+.countdown {
+  color: #059862;
+}
+
+.error-color {
+  color: #f62d51;
+  -webkit-animation: heartBeat 1s;
+  animation: heartBeat 10s;
+  text-shadow: 2px 2px 2px black;
+}
+
+.exito-color {
+  color: #059862;
+  text-shadow: 2px 2px 4px #000;
+  -webkit-animation: heartBeat 1s;
+  animation: heartBeat 10s;
+}
+
+.masthead2 {
+  background-color: #38383d;
+}
+
+.j-button-poi {
+  cursor: pointer;
+}
+
+.center {
+  text-align: center !important;
+}
+
+.avatar-profile {
+  width: 100% !important;
+}
+
+.registro-profile {
+  width: 10% !important;
+}
+
+ul {
+  list-style: none;
+  text-decoration: none;
+}
+
+ul li button:hover {
+  background: #183153 !important;
+  color: white !important;
+  transition: all 300ms;
+  text-decoration: none;
+  -webkit-animation: rubberBand 1s;
+  animation: rubberBand 1s;
+}
+
+.start-button {
+  font-size: large;
+  background-color: #1c7ed6;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  flex-grow: 1;
+  padding: 1.5rem;
+  text-shadow: 2px 2px 2px black;
+}
+
+.start-button:hover {
+  background-color: #1c7ed6 !important;
+}
+
+.start-button-animation {
+  -webkit-animation: tada 1s;
+  animation: tada 1s;
+}
+
+.start-button-animation-disabled {
+  -webkit-animation: shakeX 1s;
+  animation: shakeX 1s;
+}
+
+.mensaje-categoria {
+  text-shadow: 2px 2px 2px black;
+  font-weight: 800;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.titulo-juego {
+  text-shadow: 2px 2px 2px black;
+  font-weight: 800;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.progreso {
+  font-weight: 600;
+  color: gray !important;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.tabla-progreso {
+  font-weight: 800;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.datos-progreso {
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.no-binary {
+  text-shadow: 2px 2px 2px black;
+  font-weight: 800;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #ffc107;
+}
+
+.avance {
+  text-shadow: 3px 3px 3px black;
+  font-weight: 800;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.preguntas-juego {
+  text-shadow: 10px 10px 10px black;
+  font-weight: 800;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.categoria-juego {
+  text-shadow: 3px 3px 3px black;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* font-weight: 800; */
+}
+
+.nivel-juego {
+  text-shadow: 3px 3px 3px black;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  /* font-weight: 800; */
+}
+.sharein {
+  float: right;
+  display: block;
+  text-shadow: 1px 1px 2px black;
+}
+
+.sharein a {
+  text-decoration: none;
+  font-size: 2rem;
+  color: #1c7ed6 !important;
+}
+
+.avatar-profile:hover {
+  -webkit-animation: jello 1s;
+  animation: jello 1s;
+}
+
+.scroll-button {
+  cursor: pointer;
+  float: right;
+  display: block;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: large;
+  background-color: #1c7ed6;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  flex-grow: 1;
+  padding-top: 6px;
+  text-shadow: 2px 2px 2px black;
+}
+
+.guia-ayuda {
+  text-shadow: 3px 3px 3px black;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 25px;
+}
+
+.copas {
+  font-weight: 900;
+  padding: 10px;
+  color: #ffc107;
+  text-shadow: 2px 2px 2px black;
+  font-weight: 800;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+}
+
+.ayuda {
+  text-shadow: 3px 3px 3px black;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+}
+
+.usuario {
+  background-color: #2b2a33;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.usuario h3 {
+  color: white;
+}
+
+.usuario label {
+  color: white;
+}
+
+.j-button-usu {
+  margin-top: 1rem;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #1c7ed6;
+  border-color: rgba(0, 0, 0, 0.2);
+  border-style: solid;
+  border-width: 1px;
+  flex-grow: 1;
+  text-shadow: 2px 2px 2px black;
+  border-radius: 0.5rem;
+}
+.sabias-que {
+  text-shadow: 3px 3px 3px black;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+}
+
+.curiosidades-chaco {
+  text-shadow: 3px 3px 3px black;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 25px;
+}
+
+.integrantes {
+  text-shadow: 3px 3px 3px black;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+}
+
+.quienes-somos {
+  text-shadow: 3px 3px 3px black;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 25px;
+}

@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %} {% block title %}Juego{% endblock %}
+{% block background %}{% load static %}{% static 'core/img/cocodrilo.png' %}{% endblock %}
+{% block headers %}
+<div id="cuenta" class="animate__animated animate__bounce"></div>
+<h6 class="categoria-juego">{{categoria.nombre}}</h6>
+<h6 class="nivel-juego">Nivel: {{nivel.nombre}}</h6>
+<div class="section-heading"></div>
+<div id="totalPreguntas"></div>
+<h4 class="section-heading preguntas-juego">{{pregunta.pregunta}}</h4>
+{% endblock %} 
+
+{% block content %}
+{% block js_footer %}{% include 'core/templates/core/juego.js.html' %}{% endblock js_footer %}
+<div class="row">
+  <div class="col-lg-3 col-md-4 offset-lg-1">
+    {% if pregunta.imagen %}
+      <img class="img-fluid" src="{{pregunta.imagen}}"/>
+    {% else %}
+      <img class="img-fluid" src="{% static 'core/img/default-image.jpg' %}"/>
+    {% endif %}
+    
+  </div>
+  <div class="col-lg-7 col-md-8">
+    {% for op in opciones %}
+    <div>
+      <button 
+        id={{op.id}}
+        onclick="validarElCorrecto('{{op.id}}', '{{op.pregunta_id}}', '{{op.correcto}}')"
+        type="button" 
+        class="btn btn-outline-secondary btn-block j-button">{{op.opcion}}
+        </button>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %} 

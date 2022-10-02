@@ -1,0 +1,44 @@
+{% extends 'core/base.html' %} {% block title %}Ayuda{% endblock %} 
+{% block background %}{% load static %}{% static 'core/img/oso_hormiguero2.jpg' %}{% endblock %} 
+
+{% block headers %}
+<h1 class="ayuda">AYUDA</h1>
+<span class="guia-ayuda">Guía del juego</span>
+{% endblock %} 
+{% block content %}
+<div class="row">
+  <div class="col-lg-8 col-md-10 mx-auto">
+    <p><b>¿Cómo jugar?</p></b>
+    <p>Al ingresar a la página usted se encontrará con 
+    una serie de botones, en color amarillo, que contienen
+    siete tipos de categorías.</p>
+    <p>Para comenzar a jugar deberá seleccionar una de las categorías y luego
+    presionar el botón azul "EMPEZAR JUEGO".</p>
+    <p>Automáticamente el juego lo llevará a otra vista donde podrá 
+    ver un reloj en cuenta regresiva y la pregunta con sus opciones 
+    correspondientes.</p>
+    <p>Cada categoría tendrá 10 preguntas, por cada nivel, y cada pregunta tendrá 
+    4 opciones, de las cuales una y sola una será correcta.</p>
+    <p>Si usted logra contestar, al menos, el 50 % de las preguntas en forma correcta, el juego 
+    le entregará un trofeo por nivel y le habilitará a jugar la misma categoría pero en un nivel 
+    más complicado.</p>
+    <p><b>Niveles</b></p>
+    <p>Por defecto, al jugar por primera vez una de las categorías, se selecciona de forma automática 
+    el nivel "fácil". Si logra responder por lo menos la mitad de las preguntas 
+    en forma correcta el juego le entregará un trofeo por nivel y su puntaje aparecerá
+    en la tabla "Puntajes" que se encuentra al final de la página de Inicio.
+    <p><b>Trofeos</b></p>
+    <p>Los trofeos aparecerán por encima de los botones de categorías cuando haya logrado superar 
+    el nivel que esté jugando.</p> 
+    <p>Hay 3 tipos de trofeos por cada nivel("Fácil", "Medio", "Master"). Cada categoría contiene
+    estos 3 tipos de trofeos, así que te desafiamos a que te diviertas ganandolos.
+    <p><b>Tabla de Puntajes</b></p>
+    <p>Al final de la página de Inicio se encuentra una tabla donde podrá visualizar sus progresos
+    por cada nivel, donde tendrá la posibilidad de volver a jugar (un nivel) en cualquier categoría,
+    en caso que no le haya gustado el puntaje obtenido ;)</p>
+    <p><b>Página Sabías Qué?</b></p>
+    <p>Si desea conocer más sobre la provincia de Chaco encontrará aquí información relevante 
+    y datos interesantes de diferentes temas</p>   
+  </div>
+</div>
+{% endblock %}

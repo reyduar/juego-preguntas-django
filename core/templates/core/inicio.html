@@ -1,0 +1,117 @@
+{% extends 'core/base.html'%} {% block title %}Juego De Preguntas{% endblock %}
+{% block background %} {% load static %}{% static 'core/img/museo-del-barro.jpg' %}{% endblock %}
+{% block headers %}
+{% block js_footer %}{% include 'core/templates/core/categoria.js.html' %}{% endblock js_footer %}
+<div id="mainContent">
+<h2 class= "titulo-juego">Juego de Preguntas Sobre la Provincia del Chaco</h2>
+
+<a onclick="vamosAPuntajes()" class="scroll-button" role="button"><i class="fa fa-arrow-down fa-2x"></i></a>
+
+<div class="row">
+   <div class="col-lg-8 col-md-10 mx-auto j-box-1">
+      <span class="mensaje-categoria">Seleccione una categoría de preguntas</span>
+        <div class="row j-box-1">
+        <div class="col-md-12">
+        {% for copa in copitas %}
+          <small class="copas"><i class="fa fa-trophy" '2g'></i>  {{copa.nivel}} : {{copa.categoria}}</small>
+        {% endfor%}
+        </div>
+        </div>
+    </div>
+    <div class="col-lg-10 col-md-12 mx-auto j-box-1">
+      <ul>
+        {% for categoria in categorias %}
+        <li>
+          <button 
+            id={{categoria.key}} 
+            type="button" class="btn btn-block btn-warning j-button" 
+            onclick="categoriaOnClick('{{ categoria.key }}', '{{ categoria.id }}')">
+            {{categoria.nombre}}
+          </button>
+        </li>
+        {% endfor %}
+      </ul>
+    </div> 
+    
+    <div class="col-lg-8 col-md-10 mx-auto">
+        <a onclick="empezarJuego()"
+           class="btn btn-primary btn-lg j-button start-button" 
+           role="button"><i class="fa fa-rocket fa-2x"></i> Empezar Juego</a>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-2">
+    {% static "" as baseUrl %}
+    <img
+      class="img-fluid avatar avatar-profile"
+      src="{{ baseUrl }}core/img/avatar/{{avatar}}.svg"
+      alt=""
+    />
+  </div>
+  <div class="col-md-10">
+        {% if request.user.first_name %}
+          <h2 class="section-heading">{{request.user.first_name}} {{request.user.last_name}}</h2>
+        {% else %}
+          <h2 class="section-heading">{{request.user.username}}</h2>
+        {% endif %}
+        
+          <div class="sharein">
+            {% autoescape on %}
+            {% with "https://juegochacoapp.herokuapp.com/" as host %}
+            {% with "Algo para compartir" as share_txt %}
+            {% with content.get_url as page_url %}
+            {% with "Es es un sitio de juego de preguntas" as title %}
+            {% with "twitter" as service %}
+              <a href="http://twitter.com/share?url={{ host }}{{ page_url }}&amp;text={{ title }}" target="_blank" title="{{ share_txt }} {{ service }}">
+                <i class="fa fa-twitter"></i>
+              </a>
+            {% endwith%}
+            {% with "facebook" as service %}
+              <a href="http://www.facebook.com/share.php?u={{ host }}{{ page_url }}&amp;t={{ title }}" target="_blank" title="{{ share_txt }} {{ service }}">
+                <i class="fa fa-facebook"></i>
+              </a>
+            {% endwith %}
+            {% endwith %}
+            {% endwith %}
+            {% endwith %}
+            {% endwith %}
+            {% endautoescape %}
+          </div>
+          <p class="progreso">Puntajes</p>
+          <table class = "table">
+            <thead class='tabla-progreso'>
+              <tr>
+                <th></th>
+                <th>Categoría</th>
+                <th>Nivel</th>
+                <th>Cantidad de Preguntas</th>
+                <th>Respuestas Correctas</th>
+                <th>Voler a Jugar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for puntuacion in puntuaciones %}
+              <tr class='datos-progreso'>
+                <td><span style="color: #ffc107;"><i class="fa fa-trophy"></i></span></td>
+                <td>{{puntuacion.categoria}}</td>
+                <td>{{puntuacion.nivel}}</td>
+                <td style="text-align: center;">{{puntuacion.cantidad_preguntas}}</td>
+                <td style="text-align: center;">{{puntuacion.cantidad_respuestas}}</td>
+                <td style="text-align: center;"><a style="color: #059862 !important;" href="{% url 'juego' puntuacion.categoria.id puntuacion.nivel.id %}">
+                  <i class="fa fa-history"></i>
+                </a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>    
+        </div>
+  </div>
+{% endblock %}
+</div>
+
+
+
+
+

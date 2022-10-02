@@ -1,0 +1,62 @@
+<script>
+    cleanPuntuacion();
+    var primeraPregunta = null;
+    var categoriaAJugar = null;
+    var nivelAJugar = null;
+    
+    /*Funcion que permite seleccionar una catgoria y pasarsela a la vista categoria*/
+    function categoriaOnClick(key, categoriaId) {
+        $(".start-button").removeClass("start-button-animation");
+        categoriaAJugar = categoriaId;
+        
+        const punUrl = `{% url 'puntuaciones' %}?categoriaId=${categoriaId}`;
+        // TODO: Refactor: mejor implementarlo con async.. await
+        fetch(punUrl).then(response => response.json()).then(function(data) {
+            const { puntuaciones } = data;
+            let = nivelActual = 1;
+            if(puntuaciones) {
+                const niveles = puntuaciones.map(item => item.nivel_id);
+                nivelActual = Math.max(...niveles);
+                if (nivelActual >= 3) {
+                    // TODO: Agregar mensaje para avisar que ya esta en el nivel master
+                    nivelActual = 3;
+                } else {
+                    nivelActual += 1;
+                }
+            }
+            nivelAJugar = nivelActual.toString();
+            
+            const categoriaUrl = `{% url 'categoria' %}?categoriaId=${categoriaId}&nivelId=${nivelActual}`;
+            fetch(categoriaUrl).then(response => response.json()).then(function(data) {
+                const { preguntas } = data;
+                if(preguntas) {
+                    primeraPregunta = preguntas[0].id.toString();   
+                                
+                    $(".j-button").removeClass("highlight");
+                    $(`#${key}`).addClass("highlight");
+                    $(".start-button").addClass("start-button-animation");
+                }
+            })
+        })
+
+    }
+
+    /*Funcion que navega a la pagina del juego con la primera pregunta de la categoria seleccionada*/
+    function empezarJuego() {
+      if (categoriaAJugar && nivelAJugar) {
+        cleanPuntuacion();
+        const juegoUrl = "{% url 'juego' categoriaId=123 nivelId=789 preguntaId=456 %}".replace(/123/, categoriaAJugar).replace(/789/, nivelAJugar).replace(/456/, primeraPregunta)
+        window.location.href = juegoUrl;
+      } else {
+        $(".start-button").addClass("start-button-animation-disabled");          
+      }
+      
+    }
+    function cleanPuntuacion() {
+        localStorage.removeItem("puntuacion");
+    }
+    
+    function vamosAPuntajes() {
+        window.scrollTo(0,document.body.scrollHeight);
+    }
+  </script>

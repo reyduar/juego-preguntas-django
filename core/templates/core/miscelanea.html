@@ -1,0 +1,30 @@
+{% extends 'core/base.html' %} {% block title %}Sabías Qué?{% endblock %} 
+{% block background %}{% load static %}{% static 'core/img/zorrino3.png' %}{% endblock %}
+{% block headers %}
+<h1 class= "sabias-que">SABíAS QUÉ?</h1>
+<span class="curiosidades-chaco">Algunas curiosidades históricas sobre el Chaco</span>
+{% endblock %} 
+{% block content %}
+{% for titulo in titulos %}
+<div class="row">
+  <div class="col-lg-3 col-md-4 offset-lg-1">
+    <img
+      class="img-fluid"
+      src={{titulo.imagen}}
+      alt=""
+    />
+  </div>
+  <div class="col-lg-7 col-md-8">
+    <h2 class="section-heading">{{titulo.titulo}}</h2>
+    <p>
+      {{titulo.informe}}
+    </p>
+    <div>
+      <a href={{titulo.link_informe}} target="_blank">                   
+      "Leer más"  
+      </a>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
